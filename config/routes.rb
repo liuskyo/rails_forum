@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
   resources :essays do
     resources :comments,:controller=>"essay_comments"
+
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

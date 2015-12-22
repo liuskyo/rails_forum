@@ -1,0 +1,13 @@
+<h1>極簡論壇</h1>
+
+<h2>主題</h2>
+<table class="table">
+<% @essays.each do |e|%>
+<tr>
+	<td>
+		<%=link_to e.topic,essay_path(e)%>
+	</td>
+
+</tr>
+<%end%>
+</table>

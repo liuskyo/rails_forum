@@ -7,7 +7,14 @@
 	<td>
 		<%=link_to e.topic,essay_path(e)%>
 	</td>
+	<td>
+	<%= link_to "編輯文章",edit_essay_path(e),:class=>"btn btn-default"%>
+	<%=link_to "刪除文章", essay_path(e),:method=>:delete,:class=>"btn btn-danger"%>
+	</td>
 
 </tr>
 <%end%>
 </table>
+
+
+<%=link_to "發表新文章",new_essay_path%>

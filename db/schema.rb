@@ -11,7 +11,43 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151222081225) do
+ActiveRecord::Schema.define(version: 20151222095952) do
+
+  create_table "categories", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "category_essayships", force: :cascade do |t|
+    t.string   "essay_id"
+    t.string   "category_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "category_essayships", ["category_id"], name: "index_category_essayships_on_category_id"
+  add_index "category_essayships", ["essay_id"], name: "index_category_essayships_on_essay_id"
+
+  create_table "comments", force: :cascade do |t|
+    t.string   "user_id"
+    t.string   "essay_id"
+    t.text     "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "comments", ["essay_id"], name: "index_comments_on_essay_id"
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id"
+
+  create_table "essays", force: :cascade do |t|
+    t.string   "user_id"
+    t.string   "topic"
+    t.text     "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "essays", ["user_id"], name: "index_essays_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "name"

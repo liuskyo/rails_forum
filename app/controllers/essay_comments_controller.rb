@@ -1,0 +1,2 @@
+class EssayCommentsController < ApplicationController
+end

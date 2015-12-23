@@ -8,6 +8,10 @@
 		<%=link_to e.topic,essay_path(e)%>
 	</td>
 	<td>
+		<%=e.user.try(:email)%>
+	</td>
+
+	<td>
 	<%= link_to "編輯文章",edit_essay_path(e),:class=>"btn btn-default"%>
 	<%=link_to "刪除文章", essay_path(e),:method=>:delete,:class=>"btn btn-danger"%>
 	</td>

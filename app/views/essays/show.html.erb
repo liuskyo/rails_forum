@@ -22,13 +22,13 @@
 		<%=c.content%>
 	</td>
 	<td>
-		
+		<%=c.user.try(:email)%>
 	</td>
 	<td>
 		<%=link_to "編輯留言",edit_essay_comment_path(@essay,c),:class=>"btn btn-primary"%>
 	</td>
 	<td>
-		<%=link_to "Delete",essay_path(@essay,c), :method=>:delete,:data=>{:confirm=>"Are You Sure"},:class=>"btn btn-danger"%>
+		<%=link_to "刪除留言",essay_comment_path(@essay,c), :method=>:delete,:data=>{:confirm=>"Are You Sure"},:class=>"btn btn-danger"%>
 	</td>
 
 

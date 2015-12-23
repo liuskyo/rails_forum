@@ -5,6 +5,7 @@ class EssayCommentsController < ApplicationController
 	def create
 		@essay=Essay.find(params[:essay_id])
 		@comment=@essay.comments.build(comment_params)
+		@comment.user=current_user
 		if @comment.save
 			redirect_to essay_path(@essay)
 		else
@@ -29,6 +30,12 @@ class EssayCommentsController < ApplicationController
 
 	end	
 
+	def destroy
+		@essay=Essay.find(params[:essay_id])
+		@comment=@essay.comments.find(params[:id])
+		@comment.destroy
+		redirect_to essay_path(@essay)
+	end
 
 
 

@@ -1,5 +1,5 @@
 class EssaysController < ApplicationController
-
+before_action :authenticate_user!,:except=>[:index]
 	def index
  		@essays=Essay.all
 	end

@@ -6,7 +6,8 @@ class EssaysController < ApplicationController
 
 	def show
 		@essay=Essay.find(params[:id])
-		
+        @comments=@essay.comments
+		@comment=Comment.new
 	end
 
 
@@ -42,15 +43,6 @@ class EssaysController < ApplicationController
     	redirect_to essays_path
     	
     end
-
-
-
-
-
-
-
-
-
 
 
 

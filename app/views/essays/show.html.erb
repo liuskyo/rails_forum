@@ -14,6 +14,9 @@
 	<td>
 		留言者
 	</td>
+	<td>
+		回覆時間
+	</td>
 </tr>
 
 <% @comments.each do |c|%>
@@ -23,6 +26,9 @@
 	</td>
 	<td>
 		<%=c.user.try(:email)%>
+	</td>
+	<td>
+		<%=c.created_at%>
 	</td>
 	<td>
 		<%=link_to "編輯留言",edit_essay_comment_path(@essay,c),:class=>"btn btn-primary"%>

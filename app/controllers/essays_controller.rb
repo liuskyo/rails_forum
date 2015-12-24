@@ -1,7 +1,9 @@
 class EssaysController < ApplicationController
 before_action :authenticate_user!,:except=>[:index]
 	def index
- 		@essays=Essay.all
+        @essays=Essay.all
+        sort_by = (params[:order] == 'comments_cont') ? 'comments_cont Desc' : 'created_at'
+        @essays = @essays.order(sort_by)
 	end
 
 	def show
@@ -18,6 +20,7 @@ before_action :authenticate_user!,:except=>[:index]
     def create
     	@essay=Essay.new(essay_params)
     	@essay.user=current_user
+        @essay.comments_cont=0
 
     	if @essay.save
 			redirect_to essays_path#tell browser http code:303
@@ -58,7 +61,7 @@ before_action :authenticate_user!,:except=>[:index]
 
 private
 	def essay_params
-		params.require(:essay).permit(:topic,:content,:category_id)
+		params.require(:essay).permit(:topic,:content,:category_id,:category_ids=>[])
 	end
 
 

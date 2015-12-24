@@ -3,3 +3,8 @@
 
 <%=f.label :content,"內容"%>
 <%=f.text_area :content%>
+
+   <div class="form-group">
+
+     <%= f.collection_check_boxes(:category_ids, Category.all, :id, :name) %>
+    </div>

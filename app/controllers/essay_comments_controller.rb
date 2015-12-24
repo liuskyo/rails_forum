@@ -7,6 +7,8 @@ class EssayCommentsController < ApplicationController
 		@comment=@essay.comments.build(comment_params)
 		@comment.user=current_user
 		if @comment.save
+			@essay.comments_cont=@essay.comments_cont+1
+			@essay.save
 			redirect_to essay_path(@essay)
 		else
 			render redirect_to essay_path(@essay)
@@ -34,6 +36,8 @@ class EssayCommentsController < ApplicationController
 		@essay=Essay.find(params[:essay_id])
 		@comment=@essay.comments.find(params[:id])
 		@comment.destroy
+		@essay.comments_cont=@essay.comments_cont-1
+		@essay.save
 		redirect_to essay_path(@essay)
 	end
 

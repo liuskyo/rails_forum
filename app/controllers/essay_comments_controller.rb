@@ -8,6 +8,7 @@ class EssayCommentsController < ApplicationController
 		@comment.user=current_user
 		if @comment.save
 			@essay.comments_cont=@essay.comments_cont+1
+			@essay.lastcomment_cratedat=@essay.comments.last.created_at
 			@essay.save
 			redirect_to essay_path(@essay)
 		else

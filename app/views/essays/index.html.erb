@@ -1,6 +1,16 @@
 <h1>極簡論壇</h1>
 
 
+
+分類:
+<%= link_to "News",essays_path(:cat=>"1") %>
+<%= link_to "Sports",essays_path(:cat=>"2") %>
+<%= link_to "Serious",essays_path(:cat=>"3") %>
+<%= link_to "Sicience",essays_path(:cat=>"4") %>
+<%= link_to "Gosship",essays_path(:cat=>"5") %>
+<%= link_to "All",essays_path %>
+
+
 <table class="table">
 <tr>
 	<td>
@@ -16,10 +26,11 @@
 		貼文時間
 	</td>
 	<td>
-		最後回覆時間
+	
+		<%= link_to "最後回覆時間",essays_path(:order=>"last_comment",:cat=>@cat)%>
 	</td>
 	<td>
-		<%= link_to "留言數",essays_path(:order=>"comments_cont")%>
+		<%= link_to "留言數",essays_path(:order=>"comments_cont",:cat=>@cat)%>
 	</td>
 </tr>
 <% @essays.each do |e|%>

@@ -1,9 +1,32 @@
 class EssaysController < ApplicationController
 before_action :authenticate_user!,:except=>[:index]
 	def index
-        @essays=Essay.all
-        sort_by = (params[:order] == 'comments_cont') ? 'comments_cont Desc' : 'created_at'
-        @essays = @essays.order(sort_by)
+
+
+        if params[:cat]
+            @categories=Category.find(params[:cat])
+            @essays=@categories.essays
+            @cat=params[:cat]
+            if params[:order]
+                sort_by = (params[:order] == 'comments_cont') ? 'comments_cont Desc' : 'lastcomment_cratedat'
+                @essays = @essays.order(sort_by)
+            end
+        else
+            @essays=Essay.all
+            if params[:order]
+                sort_by = (params[:order] == 'comments_cont') ? 'comments_cont Desc' : 'lastcomment_cratedat'
+                @essays = @essays.order(sort_by)
+            end
+        end
+
+
+
+
+        if params[:order]
+            sort_by = (params[:order] == 'comments_cont') ? 'comments_cont Desc' : 'lastcomment_cratedat'
+            @essays = @essays.order(sort_by)
+        end
+
 	end
 
 	def show

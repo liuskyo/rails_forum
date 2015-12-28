@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
+
+  get "/about" => "essays#about"
+
+
   devise_for :users
+  resources :users
 
     resources :essays do
       resources :comments,:controller=>"essay_comments"

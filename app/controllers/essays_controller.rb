@@ -71,7 +71,11 @@ before_action :authenticate_user!,:except=>[:index]
     end
 
 
-
+    def about
+        @users=User.all
+        @comments=Comment.all
+        @essays=Essay.all
+    end
 
 
 

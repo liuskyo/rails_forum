@@ -33,6 +33,8 @@ before_action :authenticate_user!,:except=>[:index]
 		@essay=Essay.find(params[:id])
         @comments=@essay.comments
 		@comment=Comment.new
+        @essay.counts=@essay.counts+1
+        @essay.save
 	end
 
 
@@ -44,6 +46,7 @@ before_action :authenticate_user!,:except=>[:index]
     	@essay=Essay.new(essay_params)
     	@essay.user=current_user
         @essay.comments_cont=0
+        @essay.counts=0
 
     	if @essay.save
 			redirect_to essays_path#tell browser http code:303

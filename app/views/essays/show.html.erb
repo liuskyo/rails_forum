@@ -2,6 +2,15 @@
 
 <p><%=@essay.content%></p>
 
+
+<% like = @essay.find_my_like(current_user) %>
+<% if like %>
+  <%= link_to "Unlike", essay_like_path(@essay, like), :method => :delete, :class => "btn btn-danger" %>
+<% else %>
+  <%= link_to "Like", essay_likes_path(@essay), :method => :post, :class => "btn btn-primary" %>
+<% end %>
+
+喜歡數:<%=@essay.like_users.size%>
 <h4>留言:</h4>
 
 
@@ -31,10 +40,14 @@
 		<%=c.created_at%>
 	</td>
 	<td>
+		<%if current_user==c.user%>
 		<%=link_to "編輯留言",edit_essay_comment_path(@essay,c),:class=>"btn btn-primary"%>
+		<%end%>
 	</td>
 	<td>
+		<%if current_user==c.user%>
 		<%=link_to "刪除留言",essay_comment_path(@essay,c), :method=>:delete,:data=>{:confirm=>"Are You Sure"},:class=>"btn btn-danger"%>
+		<%end%>
 	</td>
 
 

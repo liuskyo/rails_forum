@@ -3,11 +3,12 @@ Rails.application.routes.draw do
   get "/about" => "essays#about"
 
 
-  devise_for :users
+  devise_for :users,:controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   resources :users
 
     resources :essays do
       resources :comments,:controller=>"essay_comments"
+      resources :likes
 
     end
   # The priority is based upon order of creation: first created -> highest priority.

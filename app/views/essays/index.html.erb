@@ -32,6 +32,9 @@
 	<td>
 		<%= link_to "留言數",essays_path(:order=>"comments_cont",:cat=>@cat)%>
 	</td>
+	<td>
+		瀏覽數
+	</td>
 </tr>
 <% @essays.each do |e|%>
 
@@ -56,10 +59,17 @@
 	<td>
 		<%=e.comments.size%>
 	</td>
-
 	<td>
+     	<%=e.counts%>
+     </td>
+	<td>
+	<%if current_user==e.user%>
 	<%= link_to "編輯文章",edit_essay_path(e),:class=>"btn btn-default"%>
 	<%=link_to "刪除文章", essay_path(e),:method=>:delete,:class=>"btn btn-danger"%>
+	<%end%>
+	</td>
+	<td>
+		收藏文章
 	</td>
 
 </tr>

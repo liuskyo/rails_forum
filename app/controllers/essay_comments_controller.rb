@@ -1,11 +1,14 @@
 class EssayCommentsController < ApplicationController
 	
-	
+	before_action :set_essay
+	before_action :authenticate_user!
+
+
 
 	def create
-		@essay=Essay.find(params[:essay_id])
-		@comment=@essay.comments.build(comment_params)
-		@comment.user=current_user
+		@comment = @essay.comments.build(comment_params)
+		@comment.user = current_user
+
 		if @comment.save
 			@essay.comments_cont=@essay.comments_cont+1
 			@essay.lastcomment_cratedat=@essay.comments.last.created_at
@@ -18,13 +21,11 @@ class EssayCommentsController < ApplicationController
 
 
 	def edit
-		@essay=Essay.find(params[:essay_id])
-		@comment=@essay.comments.find(params[:id])
+		@comment = @essay.comments.find(params[:id])
 	end
 
 	def update
-		@essay=Essay.find(params[:essay_id])
-		@comment=@essay.comments.find(params[:id])
+		@comment = current_user.comments.find(params[:id])
 		if @comment.update(comment_params)
 			redirect_to essay_path(@essay)
 		else
@@ -34,22 +35,20 @@ class EssayCommentsController < ApplicationController
 	end	
 
 	def destroy
-		@essay=Essay.find(params[:essay_id])
-		@comment=@essay.comments.find(params[:id])
+		@comment = current_user.comments.find(params[:id])
 		@comment.destroy
 		@essay.comments_cont=@essay.comments_cont-1
 		@essay.save
+
 		redirect_to essay_path(@essay)
 	end
 
 
+	private
 
-private
 	def comment_params
 		params.require(:comment).permit(:content)
 		
 	end
-
-
 
 end

@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 20160102154237) do
     t.datetime "updated_at",           null: false
     t.integer  "comments_cont"
     t.datetime "lastcomment_cratedat"
-    t.integer  "counts"
+    t.integer  "counts" 
   end
 
   add_index "essays", ["user_id"], name: "index_essays_on_user_id"

@@ -1,6 +1,6 @@
-<h2><%=@essay.topic%></h2>
+<h2><%= @essay.topic %></h2>
 
-<p><%=@essay.content%></p>
+<p><%= simple_format @essay.content %></p>
 
 
 <% like = @essay.find_my_like(current_user) %>
@@ -40,12 +40,12 @@
 		<%=c.created_at%>
 	</td>
 	<td>
-		<%if current_user==c.user%>
+		<%if current_user && current_user == c.user%>
 		<%=link_to "編輯留言",edit_essay_comment_path(@essay,c),:class=>"btn btn-primary"%>
 		<%end%>
 	</td>
 	<td>
-		<%if current_user==c.user%>
+		<%if current_user && current_user == c.user%>
 		<%=link_to "刪除留言",essay_comment_path(@essay,c), :method=>:delete,:data=>{:confirm=>"Are You Sure"},:class=>"btn btn-danger"%>
 		<%end%>
 	</td>
@@ -57,12 +57,11 @@
 
 
 <%= form_for @comment,:url=>essay_comments_path(@essay) do |f|%>
-<%= f.label :content%>
-<%= f.text_area :content%>
+	<%= f.label :content%>
+	<%= f.text_area :content%>
 
-<%= f.submit "回覆",:class=>"btn btn-deafault"%>
+	<%= f.submit "回覆",:class=>"btn btn-deafault"%>
 <%end%>
-
 
 
 <p><%= link_to 'Back to index', essays_path %></p>

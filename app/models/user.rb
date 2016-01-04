@@ -6,12 +6,17 @@ class User < ActiveRecord::Base
          :omniauthable, :omniauth_providers => [:facebook]
 
   has_many :essays
-
-  has_many :likes
+  has_many :comments
+  
+  has_many :likes,:dependent => :destroy
   has_many :like_essays, :through => :likes, :source => :essay
 
-  has_many :subsciptions
-  has_many :subsciption_essays,:through=>:subsciptions,:source=>:essay
+  has_many :subscriptions,:dependent => :destroy
+  has_many :subscription_essays,:through=>:subscriptions,:source=>:essay
+
+  def display_name
+    name || email.split("@").first
+  end
 
   def self.from_omniauth(auth)
       # Case 1: Find existing user by facebook uid
@@ -40,7 +45,7 @@ class User < ActiveRecord::Base
       user.email = auth.info.email
       user.password = Devise.friendly_token[0,20]
       #user.fb_raw_data = auth
-      user.save!
+      user.save
       return user
   end
 end

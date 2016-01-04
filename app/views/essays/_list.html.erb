@@ -1,0 +1,71 @@
+分類:
+
+<% Category.all.each do |c| %>
+	<%= link_to c.name, essays_path( :cat=> c.id ) %>
+<% end %>
+<%= link_to "All",essays_path %>
+
+<table class="table">
+<tr>
+	<td>主題</td>
+	<td>使用者</td>
+	<td>分類</td>
+	<td>貼文時間</td>
+	<td>
+		<%= link_to "最後回覆時間",essays_path(:order=>"last_comment",:cat=> params[:cat] )%>
+	</td>
+	<td>
+		<%= link_to "留言數",essays_path(:order=>"comments_cont",:cat=> params[:cat] )%>
+	</td>
+	<td>瀏覽數</td>
+</tr>
+<% @essays.each do |e|%>
+
+<tr>
+	<td>
+		<%=link_to e.topic,essay_path(e) %>
+	</td>
+	<td>
+		<%=link_to e.user.try(:display_name), user_path(e.user)%>
+	</td>
+	<td>
+		<% e.categorys.each do|c|%>
+			<%= c.try(:name)%>
+		<%end%>
+	</td>
+	<td>
+		<%=e.created_at%>
+	</td>
+	<td>
+		<%=e.comments.last.try(:created_at)%>
+	</td>
+	<td>
+		<%=e.comments.size%>
+	</td>
+	<td>
+     	<%=e.counts%>
+     </td>
+	<td>
+	
+	<% if current_user && current_user == e.user %>
+		<%= link_to "編輯文章",edit_essay_path(e), :class=> "btn btn-default" %>
+		<%=link_to "刪除文章", essay_path(e), :method=>:delete, :class=> "btn btn-danger" %>
+	<%end%>
+
+	</td>
+	<td>
+		<% if e.find_my_subscription(current_user) %>
+ 		<%= link_to "UnSubscribe", unsubscribe_essay_path(e), :method => :post, :class => "btn btn-danger" %>
+ 		<% else %>
+ 	  <%= link_to "Subscribe", subscribe_essay_path(e), :method => :post, :class => "btn btn-default" %>
+ 		<% end %>
+	</td>
+
+</tr>
+<%end%>
+</table>
+
+
+
+
+<%=link_to "發表新文章",new_essay_path%>

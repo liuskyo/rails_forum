@@ -17,5 +17,4 @@ class LikesController < ApplicationController
      redirect_to :back
    end
  
-   protected
 end
